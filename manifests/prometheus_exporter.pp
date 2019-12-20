@@ -4,7 +4,11 @@
 #
 # @example
 #   include walg::prometheus_exporter
-class walg::prometheus_exporter {
+class walg::prometheus_exporter (
+  Stdlib::HttpsUrl     $source,
+  String[1]            $checksum,
+  Stdlib::Absolutepath $destination = '/usr/local/bin',
+) {
   class { 'walg::prometheus_exporter::install': }
   ~> class { 'walg::prometheus_exporter::service': }
 

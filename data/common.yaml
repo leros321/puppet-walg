@@ -1,3 +1,6 @@
 ---
-walg::install::source: 'https://github.com/wal-g/wal-g/releases/download/v0.2.14/wal-g.linux-amd64.tar.gz'
-walg::install::checksum: '10527abe958bceba888eb209698661a00cb6e24bf324958e887709901f017005'
+walg::source: 'https://github.com/wal-g/wal-g/releases/download/v0.2.14/wal-g.linux-amd64.tar.gz'
+walg::checksum: '10527abe958bceba888eb209698661a00cb6e24bf324958e887709901f017005'
+
+walg::prometheus_exporter::source: 'https://github.com/camptocamp/wal-g-prometheus-exporter/release/download/0.0.2/wal-g-prometheus-exporter'
+walg::prometheus_exporter::checksum: 'bdd5c525c86fffde1978ada40cb19a041870246c1d980ed90445d0b15b829404'

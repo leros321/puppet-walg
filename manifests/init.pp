@@ -5,7 +5,10 @@
 # @example
 #   include walg
 class walg (
-  Boolean $prometheus_exporter = false,
+  Stdlib::HTTPSUrl     $source,
+  String[1]            $checksum,
+  Stdlib::Absolutepath $destination = '/usr/local/bin',
+  Boolean              $prometheus_exporter = false,
 ) {
   class { 'walg::install': }
   -> class { 'walg::config': }
