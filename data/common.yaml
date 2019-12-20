@@ -1,1 +1,3 @@
 ---
+walg::install::source: 'https://github.com/wal-g/wal-g/releases/download/v0.2.14/wal-g.linux-amd64.tar.gz'
+walg::install::checksum: '10527abe958bceba888eb209698661a00cb6e24bf324958e887709901f017005'
