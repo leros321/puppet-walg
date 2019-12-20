@@ -8,8 +8,8 @@ class walg::prometheus_exporter::service {
   assert_private()
 
   systemd::unit_file { 'wal-g-prometheus-exporter.service':
-    content   => file('walg/wal-g-prometheus-exporter.service'),
-    enable    => true,
-    active    => true,
+    content => file('walg/wal-g-prometheus-exporter.service'),
+    enable  => true,
+    active  => true,
   }
 }
