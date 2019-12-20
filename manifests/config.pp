@@ -7,6 +7,8 @@
 class walg::config {
   assert_private()
 
+  include postgresql::server
+
   file { '/usr/local/bin/archive_command.sh':
     content => file('walg/archive_command.sh'),
     mode    => '0755',
