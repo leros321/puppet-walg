@@ -5,3 +5,5 @@ fixtures:
   forge_modules:
      stdlib: "puppetlabs/stdlib"
      postgresql: "puppetlabs/postgresql"
+     archive: "puppet/archive"
+     systemd: "camptocamp/systemd"
