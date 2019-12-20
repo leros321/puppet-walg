@@ -9,13 +9,13 @@ class walg::prometheus_exporter::install {
 
   archive { "${walg::prometheus_exporter::destination}/wal-g-prometheus-exporter":
     ensure        => present,
-    source        => $walg::prometheus_exportersource,
-    checksum      => $walg::prometheus_exporterchecksum,
+    source        => $walg::prometheus_exporter::source,
+    checksum      => $walg::prometheus_exporter::checksum,
     checksum_type => 'sha256',
     cleanup       => false,
-    creates       => "${walg::prometheus_exporterdestination}/wal-g-prometheus-exporter",
+    creates       => "${walg::prometheus_exporter::destination}/wal-g-prometheus-exporter",
   }
-  -> file { "${walg::prometheus_exporterdestination}/wal-g-prometheus-exporter":
+  -> file { "${walg::prometheus_exporter::destination}/wal-g-prometheus-exporter":
     ensure => file,
     mode   => '0755',
     owner  => 'root',
