@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary Download wal-g binary
 #
-# A description of what this class does
+# This class download wal-g binary and install it in path
 #
 # @example
 #   include walg::install

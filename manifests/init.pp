@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary Download and setup wal-g
 #
-# A description of what this class does
+# Download and setup wal-g for backup
 #
 # @example
 #   include walg
