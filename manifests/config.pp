@@ -1,6 +1,7 @@
-# @summary A short summary of the purpose of this class
+# @summary Setup postgres archive command
 #
-# A description of what this class does
+# This class install a script for archive command
+# and configure postgres to use this script
 #
 # @example
 #   include walg::config
@@ -22,7 +23,7 @@ class walg::config {
       ;
 
     'archive_command':
-      value => '/usr/local/bin/archive_command.sh %p',
+      value => '/usr/local/bin/archive_command.sh /usr/local/bin/exporter.env %p',
       ;
   }
 }
