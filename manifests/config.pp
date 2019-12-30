@@ -1,7 +1,8 @@
-# @summary Setup postgres archive command
+# @summary Setup full and incremental backup
 #
-# This class install a script for archive command
-# and configure postgres to use this script
+# This class install one script for incremental backup and
+# another for full backup, configure postgres archive_command
+# and setup cronjob to perform full backup.
 #
 # @example
 #   include walg::config
@@ -17,6 +18,13 @@ class walg::config {
     group   => 'root',
   }
 
+  file { '/usr/local/bin/cron-full-backup.sh':
+    content => file('walg/cron-full-backup.sh'),
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+  }
+
   postgresql::server::config_entry {
     'archive_mode':
       value => 'on',
@@ -26,4 +34,11 @@ class walg::config {
       value => '/usr/local/bin/archive_command.sh /usr/local/bin/exporter.env %p',
       ;
   }
+
+  cron { 'full-backup':
+    command => '/usr/local/bin/cron-full-backup.sh /usr/local/bin/exporter.env 20',
+    user    => 'root',
+    minute  => 20,
+  }
+
 }
