@@ -19,7 +19,7 @@ class walg::config {
   }
 
   file { '/usr/local/bin/cron-full-backup.sh':
-    content => epp('walg/cron-full-backup.sh.epp',
+    content => epp('walg/cron-full-backup.sh',
       {
         'datadir'      => $postgresql::server::datadir,
       }
