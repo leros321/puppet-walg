@@ -6,7 +6,7 @@ HEADER="name                          last_modified        wal_segment_backup_st
 HEADER_OK=0
 TO_DELETE=0
 TO_KEEP=0
-PGDATA=/var/lib/pgsql/12/data
+PGDATA=<%= $datadir %>
 
 if [ $# -ne 2 ]; then
   echo "Usage $0 <env file path> <retention in days>"
