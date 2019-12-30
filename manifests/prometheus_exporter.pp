@@ -1,6 +1,7 @@
-# @summary A short summary of the purpose of this class
+# @summary Download and setup a prometheus exporter for backup metrics
 #
-# A description of what this class does
+# This class download a prometheus exporter for wal-g as binary
+# and setup a systemd unit to run this exporter
 #
 # @example
 #   include walg::prometheus_exporter

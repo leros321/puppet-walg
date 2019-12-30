@@ -2,7 +2,7 @@
   "name": "camptocamp-walg",
   "version": "0.1.0",
   "author": "Camptocamp",
-  "summary": "",
+  "summary": "Setup postgres backup with wal-g",
   "license": "Apache-2.0",
   "source": "",
   "dependencies": [

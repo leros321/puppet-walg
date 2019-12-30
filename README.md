@@ -1,14 +1,11 @@
-# walg
+# Puppet Wal-g module
 
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://puppet.com/pdk/latest/pdk_generating_modules.html .
-
-The README template below provides a starting point with details about what information to include in your README.
+Setup postgres backup with Wal-g
 
 #### Table of Contents
 
 1. [Description](#description)
 2. [Setup - The basics of getting started with walg](#setup)
-    * [What walg affects](#what-walg-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with walg](#beginning-with-walg)
 3. [Usage - Configuration options and additional functionality](#usage)
@@ -17,27 +14,18 @@ The README template below provides a starting point with details about what info
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your module does and what kind of problems users can solve with it.
-
-This should be a fairly short description helps the user decide if your module is what they want.
+This module configure backup and monitoring:
+* Download Wal-g binary
+* Download prometheus exporter binary
+* Setup postgres to use Wal-g for incremental backups
+* Setup systemd unit to run the prometheus exporter
+* Setup cron job to perform full backup
 
 ## Setup
 
-### What walg affects **OPTIONAL**
+### Setup Requirements
 
-If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* Files, packages, services, or operations that the module will alter, impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
+You need to have a running postgres service either slave or master.
 
 ### Beginning with walg
 
