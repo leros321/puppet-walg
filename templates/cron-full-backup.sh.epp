@@ -85,7 +85,7 @@ if [ -n "$LAST_BACKUP_TO_DELETE" ]; then
     echo "Something went wrong, it seems that this script try to delete all backups. Aborting"
     exit 3
   fi
-  wal-g delete before FIND_FULL $LAST_BACKUP_TO_DELETE
+  wal-g delete --confirm before FIND_FULL $LAST_BACKUP_TO_DELETE
 
   # Notify prometheus exporter
   PROMETHEUS_EXPORTER_PID=$(ps aux | grep wal-g-prometheus-exporter | grep -v grep | awk '{print $2}' | xargs | awk '{print $1}')
