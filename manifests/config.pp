@@ -18,6 +18,20 @@ class walg::config {
     group   => 'root',
   }
 
+  file { '/usr/local/bin/restore_command.sh':
+    content => file('walg/restore_command.sh'),
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+  }
+
+  file { '/root/backup-restoration.sh':
+    content => file('walg/backup-restoration.sh'),
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+  }
+
   file { '/usr/local/bin/cron-full-backup.sh':
     content => epp('walg/cron-full-backup.sh',
       {
