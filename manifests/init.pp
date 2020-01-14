@@ -7,6 +7,7 @@
 class walg (
   Stdlib::HTTPSUrl     $source,
   String[1]            $checksum,
+  Integer              $retention,
   Stdlib::Absolutepath $destination = '/usr/local/bin',
   Boolean              $prometheus_exporter = false,
 ) {

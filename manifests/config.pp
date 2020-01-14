@@ -54,9 +54,10 @@ class walg::config {
   }
 
   cron { 'full-backup':
-    command     => '/usr/local/bin/cron-full-backup.sh /usr/local/bin/exporter.env 15',
+    command     => "/usr/local/bin/cron-full-backup.sh /usr/local/bin/exporter.env ${walg::retention}",
     environment => 'PATH=/usr/local/bin:/usr/bin:/bin',
     user        => 'root',
+    hour        => 2,
     minute      => 20,
   }
 
