@@ -10,6 +10,7 @@ class walg::config {
   assert_private()
 
   include postgresql::server
+  include postgresql::server::db
   include postgresql::params
 
   file { '/usr/local/bin/archive_command.sh':
@@ -32,6 +33,7 @@ class walg::config {
         'datadir'      => $postgresql::params::datadir,
         'service_name' => $postgresql::params::service_name,
         'version'      => $postgresql::params::version,
+        'dbs'          => $postgresql::server::db::dbname,
       }
     ),
     mode    => '0755',

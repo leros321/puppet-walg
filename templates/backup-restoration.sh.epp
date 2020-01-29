@@ -5,6 +5,8 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
+
+echo <%= $dbs %>
 source $1
 export AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY
