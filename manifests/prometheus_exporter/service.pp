@@ -8,7 +8,11 @@ class walg::prometheus_exporter::service {
   assert_private()
 
   systemd::unit_file { 'wal-g-prometheus-exporter.service':
-    content => file('walg/wal-g-prometheus-exporter.service'),
+    content => epp('walg/wal-g-prometheus-exporter.service',
+      {
+        'datadir' => $postgresql::params::datadir,
+      }
+    ),
     enable  => true,
     active  => true,
   }

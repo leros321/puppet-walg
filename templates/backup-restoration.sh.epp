@@ -26,13 +26,13 @@ read DELETE_BACKUP
 
 echo "Stopping current pg instance"
 puppet agent --disable "Backup restoration"
-systemctl stop postgresql-12.service
-cd /var/lib/pgsql/12/
+systemctl stop <%= $service_name %>
+cd <%= $datadir %>/..
 if [ "$DELETE_BACKUP" = "delete" ]; then
   echo "Delete current data"
   rm -fr data
 else
-  echo "Backup current data in /var/lib/pgsql/12/data.before-restore"
+  echo "Backup current data in <%= $datadir %>.before-restore"
   mv data data.before-restore
 fi
 
@@ -51,10 +51,10 @@ fi
 chown -R postgres:postgres .
 
 echo "Starting postgres with only local connections"
-systemctl start postgresql-12.service
+systemctl start <%= $service_name %>
 
 echo "Now you can inspect database state and log file:"
-cat /var/lib/pgsql/12/data/log/*
+cat <%= $datadir %>/log/*
 
 echo
 echo
@@ -64,11 +64,11 @@ read RESTART
 
 if [ "$RESTART" = 'yes' ]; then
   sed -i "s/listen_addresses = 'localhost'/listen_addresses = '*'/" postgresql.conf
-  systemctl restart postgresql-12.service
+  systemctl restart <%= $service_name %>
   puppet agent --enable
 else
   echo "Open connections run:"
   echo sed -i "s/listen_addresses = 'localhost'/listen_addresses = '*'/" postgresql.conf
-  echo systemctl restart postgresql-12.service
+  echo systemctl restart <%= $service_name %>
   echo puppet agent --enable
 fi
