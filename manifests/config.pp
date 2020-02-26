@@ -24,11 +24,11 @@ class walg::config {
   }
 
   file { '/root/backup-restoration.sh':
-    content => epp('walg/backup-restoration.sh',
+    content => epp('walg/backup-restoration.sh.epp',
       {
-        'datadir'      => $postgresql::globals::datadir,
-        'service_name' => $postgresql::globals::service_name,
-        'version'      => $postgresql::globals::version,
+        'datadir'      => $postgresql::params::datadir,
+        'service_name' => $postgresql::params::service_name,
+        'version'      => $postgresql::params::version,
       }
     ),
     mode    => '0755',
@@ -37,9 +37,9 @@ class walg::config {
   }
 
   file { '/usr/local/bin/cron-full-backup.sh':
-    content => epp('walg/cron-full-backup.sh',
+    content => epp('walg/cron-full-backup.sh.epp',
       {
-        'datadir' => $postgresql::globals::datadir,
+        'datadir' => $postgresql::params::datadir,
       }
     ),
     mode    => '0755',
