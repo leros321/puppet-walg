@@ -3,5 +3,5 @@ walg::source: 'https://github.com/wal-g/wal-g/releases/download/v0.2.14/wal-g.li
 walg::checksum: '10527abe958bceba888eb209698661a00cb6e24bf324958e887709901f017005'
 walg::retention: 15
 
-walg::prometheus_exporter::source: 'https://github.com/camptocamp/wal-g-prometheus-exporter/releases/download/0.0.3/wal-g-prometheus-exporter'
-walg::prometheus_exporter::checksum: '5f71bb1f6acb275057c8e1bb292b56924ca0aff394ccddca83a5dadf776a3348'
+walg::prometheus_exporter::source: 'https://github.com/camptocamp/wal-g-prometheus-exporter/releases/download/0.0.4/wal-g-prometheus-exporter'
+walg::prometheus_exporter::checksum: 'ff9bebb978fb0c0b39e7c499c5f57916729589efd8107522169b71fe6ab9f641'
