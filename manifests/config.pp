@@ -9,9 +9,6 @@
 class walg::config {
   assert_private()
 
-  include postgresql::server
-  include postgresql::params
-
   file { '/usr/local/bin/archive_command.sh':
     content => file('walg/archive_command.sh'),
     mode    => '0755',
@@ -29,9 +26,9 @@ class walg::config {
   file { '/root/backup-restoration.sh':
     content => epp('walg/backup-restoration.sh',
       {
-        'datadir'      => $postgresql::params::datadir,
-        'service_name' => $postgresql::params::service_name,
-        'version'      => $postgresql::params::version,
+        'datadir'      => $postgresql::globals::datadir,
+        'service_name' => $postgresql::globals::service_name,
+        'version'      => $postgresql::globals::version,
       }
     ),
     mode    => '0755',
@@ -42,7 +39,7 @@ class walg::config {
   file { '/usr/local/bin/cron-full-backup.sh':
     content => epp('walg/cron-full-backup.sh',
       {
-        'datadir' => $postgresql::params::datadir,
+        'datadir' => $postgresql::globals::datadir,
       }
     ),
     mode    => '0755',
