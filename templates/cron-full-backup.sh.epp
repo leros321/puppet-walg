@@ -94,6 +94,4 @@ else
 fi
 
 # Notify prometheus exporter
-PROMETHEUS_EXPORTER_PID=$(ps aux | grep wal-g-prometheus-exporter | grep -v grep | awk '{print $2}' | xargs | awk '{print $1}')
-echo "Notify prometheus exporter with PID $PROMETHEUS_EXPORTER_PID"
-kill -HUP $PROMETHEUS_EXPORTER_PID
+systemctl reload wal-g-prometheus-exporter.service
