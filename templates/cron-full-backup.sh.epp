@@ -16,6 +16,7 @@ else
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
   export WALE_S3_PREFIX
+  export PGPORT
   export AWS_ENDPOINT
   export AWS_S3_FORCE_PATH_STYLE
   export AWS_REGION
@@ -25,7 +26,7 @@ else
 fi
 
 # Check if this is the master
-IS_SLAVE=$(su postgres -c 'psql -d postgres -t -A -c "SELECT pg_is_in_recovery();"' 2>/dev/NULL)
+IS_SLAVE=$(su postgres -c 'psql -d postgres -p <%= $port %> -t -A -c "SELECT pg_is_in_recovery();"' 2>/dev/NULL)
 if [[ $IS_SLAVE != 'f' ]]; then
  echo "Running on slave, so no basebackup"
  exit 0

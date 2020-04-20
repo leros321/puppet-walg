@@ -40,6 +40,7 @@ class walg::config {
     content => epp('walg/cron-full-backup.sh.epp',
       {
         'datadir' => $postgresql::params::datadir,
+        'port'    => $postgresql::server::port,
       }
     ),
     mode    => '0755',
