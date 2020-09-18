@@ -13,5 +13,6 @@ export AWS_S3_FORCE_PATH_STYLE
 export AWS_REGION
 export WALG_PGP_KEY_PATH
 export WALG_GPG_KEY_ID
+export WALG_PGP_KEY_PASSPHRASE
 
 exec wal-g wal-fetch $2 $3
