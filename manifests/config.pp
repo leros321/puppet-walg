@@ -10,7 +10,11 @@ class walg::config {
   assert_private()
 
   file { '/usr/local/bin/archive_command.sh':
-    content => file('walg/archive_command.sh'),
+    content => epp('walg/archive_command.sh.epp',
+      {
+        'backup_fuse' => $walg::backup_fuse,
+      }
+    ),
     mode    => '0755',
     owner   => 'root',
     group   => 'root',
@@ -49,7 +53,7 @@ class walg::config {
   file { '/usr/local/bin/backup-fuse.sh':
     content => epp('walg/backup-fuse.sh.epp',
       {
-        'backup_fuse' => $walg::backup_fuse,
+        'backup_fuse_threshold' => $walg::backup_fuse_threshold_gbytes,
       }
     ),
     mode    => '0755',
