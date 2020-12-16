@@ -1,0 +1,7 @@
+#!/bin/bash
+archive_process=$(psql --tuples-only -c 'SELECT last_failed_time > last_archived_time FROM pg_stat_archiver')
+if [ "$(echo $archive_process)" = "t" ]; then
+    touch /tmp/failed_pg_archive
+else
+    rm /tmp/failed_pg_archive > /dev/null 2>&1 || true
+fi
