@@ -10,6 +10,8 @@ class walg (
   Integer              $retention,
   Stdlib::Absolutepath $destination = '/usr/local/bin',
   Boolean              $prometheus_exporter = false,
+  Boolean              $backup_fuse = false,
+  Integer              $backup_fuse_threshold_gbytes = 10,
 ) {
   class { 'walg::install': }
   -> class { 'walg::config': }
