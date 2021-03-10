@@ -31,6 +31,8 @@ if [[ $IS_SLAVE != 'f' ]]; then
  exit 0
 fi
 
+echo 'Starting full backup at $(date)'
+
 # Run basebackup
 export PGHOST=/var/run/postgresql
 sudo -E -u postgres wal-g backup-push $PGDATA
