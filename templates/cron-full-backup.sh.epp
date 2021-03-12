@@ -35,7 +35,7 @@ echo 'Starting full backup at $(date)'
 
 # Run basebackup
 export PGHOST=/var/run/postgresql
-sudo -E -u postgres wal-g backup-push $PGDATA
+sudo -E -u postgres wal-g backup-push $PGDATA 2>&1
 
 # Compute target date, retention in days can have decimal part: 14.9
 RETENTION_SECONDS=$(echo $RETENTION_DAYS | awk '{printf "%d",3600*24*$1}')
@@ -89,7 +89,7 @@ if [ -n "$LAST_BACKUP_TO_DELETE" ]; then
     echo "Something went wrong, it seems that this script try to delete all backups. Aborting"
     exit 3
   fi
-  wal-g delete --confirm before FIND_FULL $LAST_BACKUP_TO_DELETE
+  wal-g delete --confirm before FIND_FULL $LAST_BACKUP_TO_DELETE 2>&1
 
 else
   echo "No backup to delete"
