@@ -12,6 +12,7 @@ class walg (
   Boolean              $prometheus_exporter = false,
   Boolean              $backup_fuse = false,
   Integer              $backup_fuse_threshold_gbytes = 10,
+  String               $backup_prefix = '',
 ) {
   class { 'walg::install': }
   -> class { 'walg::config': }

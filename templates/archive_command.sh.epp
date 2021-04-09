@@ -13,8 +13,8 @@ export WALG_GPG_KEY_ID
 if [ -f /tmp/failed_pg_archive ]; then
   exit 0
 else
-  exec wal-g wal-push $2
+  exec <%= $backup_prefix %> wal-g wal-push $2
 fi
 <% } else { -%>
-exec wal-g wal-push $2
+exec <%= $backup_prefix %> wal-g wal-push $2
 <% } -%>

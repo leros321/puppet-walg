@@ -12,7 +12,8 @@ class walg::config {
   file { '/usr/local/bin/archive_command.sh':
     content => epp('walg/archive_command.sh.epp',
       {
-        'backup_fuse' => $walg::backup_fuse,
+        'backup_fuse'   => $walg::backup_fuse,
+        'backup_prefix' => $walg::backup_prefix,
       }
     ),
     mode    => '0755',
@@ -82,7 +83,7 @@ class walg::config {
 
   if $walg::backup_fuse {
     cron { 'backup-fuse':
-      command     => "/usr/local/bin/backup-fuse.sh",
+      command     => '/usr/local/bin/backup-fuse.sh',
       environment => 'PATH=/usr/local/bin:/usr/bin:/bin',
       user        => 'postgres',
       minute      => '*/5',
