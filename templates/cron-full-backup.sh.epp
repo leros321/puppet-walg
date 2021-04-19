@@ -31,11 +31,13 @@ if [[ $IS_SLAVE != 'f' ]]; then
  exit 0
 fi
 
-echo 'Starting full backup at $(date)'
+echo "Starting full backup at $(date)"
 
 # Run basebackup
 export PGHOST=/var/run/postgresql
-sudo -E -u postgres wal-g backup-push $PGDATA 2>&1
+sudo -E -u postgres /usr/local/bin/wal-g backup-push $PGDATA 2>&1
+
+echo "End of full backup at $(date)"
 
 # Compute target date, retention in days can have decimal part: 14.9
 RETENTION_SECONDS=$(echo $RETENTION_DAYS | awk '{printf "%d",3600*24*$1}')
@@ -45,7 +47,7 @@ DELETE_BEFORE_DATE=$(date -d @${DELETE_BEFORE_DATE_SECOND} -u +%Y-%m-%dT%H:%M:%S
 echo "Will delete backups before $DELETE_BEFORE_DATE"
 
 # Fetch full backup list
-FULL_BACKUPS=$(wal-g backup-list)
+FULL_BACKUPS=$(/usr/local/bin/wal-g backup-list)
 if [ $? -ne 0 ]; then
   exit 1
 fi
@@ -78,7 +80,7 @@ while read line; do
     TO_KEEP=$(( $TO_KEEP + 1 ))
   fi
 
-done < <(wal-g backup-list)
+done < <(/usr/local/bin/wal-g backup-list)
 
 echo "Will delete $TO_DELETE and keep $TO_KEEP full backups"
 if [ -n "$LAST_BACKUP_TO_DELETE" ]; then
@@ -89,7 +91,7 @@ if [ -n "$LAST_BACKUP_TO_DELETE" ]; then
     echo "Something went wrong, it seems that this script try to delete all backups. Aborting"
     exit 3
   fi
-  wal-g delete --confirm before FIND_FULL $LAST_BACKUP_TO_DELETE 2>&1
+  /usr/local/bin/wal-g delete --confirm before FIND_FULL $LAST_BACKUP_TO_DELETE 2>&1
 
 else
   echo "No backup to delete"
