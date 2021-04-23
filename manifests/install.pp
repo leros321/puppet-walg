@@ -4,23 +4,35 @@
 #
 # @example
 #   include walg::install
-class walg::install {
+class walg::install(
+  $install_root = "/opt/wal-g",
+  $install_path = "${install_root}/${walg::checksum}" )
+  {
   assert_private()
-
-  archive { '/tmp/wal-g.linux-amd64.tar.gz':
+  file { [$install_root,$install_path] :
+    ensure => directory,
+    mode   => '0755',
+    owner  => 'root',
+    group  => 'root',
+  }
+  -> archive { '/tmp/wal-g.linux-amd64.tar.gz':
     ensure        => present,
     extract       => true,
-    extract_path  => $walg::destination,
+    extract_path  => $install_path,
     source        => $walg::source,
     checksum      => $walg::checksum,
     checksum_type => 'sha256',
     cleanup       => true,
-    creates       => "${walg::destination}/wal-g",
+    creates       => "${install_path}/wal-g"
   }
-  -> file { "${walg::destination}/wal-g":
+  -> file { "$install_path/walg":
     ensure => file,
     mode   => '0755',
     owner  => 'root',
     group  => 'root',
+  }
+  -> file { "${walg::destination}/wal-g":
+    ensure => link,
+    target => "${install_path}/wal-g"
   }
 }
