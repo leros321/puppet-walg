@@ -28,6 +28,13 @@ class walg::config {
     group   => 'root',
   }
 
+  file { '/usr/local/bin/wal-g.sh':
+    content => file('walg/wal-g.sh'),
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+  }
+
   file { '/root/backup-restoration.sh':
     content => epp('walg/backup-restoration.sh.epp',
       {
