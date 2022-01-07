@@ -48,6 +48,18 @@ class walg::config {
     group   => 'root',
   }
 
+  file { '/root/setup-replica-from-backup.sh':
+    content => epp('walg/setup-replica-from-backup.sh.epp',
+      {
+        'datadir'      => $postgresql::params::datadir,
+        'service_name' => $postgresql::params::service_name,
+      }
+    ),
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+  }
+
   file { '/usr/local/bin/cron-full-backup.sh':
     content => epp('walg/cron-full-backup.sh.epp',
       {

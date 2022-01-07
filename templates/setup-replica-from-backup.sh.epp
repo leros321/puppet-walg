@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e
+
+if [ -z "${2}" ]; then
+  echo "Usage : ${0} PRIMARY_HOST REPLICATOR_PASWORD"
+  exit
+fi
+
+echo -n "Delete current data or backup it locally, you need space available (delete/backup): "
+read DELETE_BACKUP
+
+last_full_backup=$(sudo -u postgres /usr/local/bin/wal-g.sh backup-list | tail -n 1 | cut -f 1 -d ' ')
+echo "Last full backup is $last_full_backup"
+
+echo "Stopping current postgres instance"
+puppet agent --disable "Setup replica from backup"
+systemctl stop <%= $service_name %>
+
+cd <%= $datadir %>/..
+if [ "$DELETE_BACKUP" = "delete" ]; then
+  echo "Delete current data"
+  rm -fr data
+else
+  echo "Backup current data in <%= $datadir %>.before-restore"
+  mv data data.before-restore
+fi
+
+echo "Download basebackup $last_full_backup"
+/usr/local/bin/wal-g.sh backup-fetch data $last_full_backup
+cd data
+
+echo "Configure replica"
+touch standby.signal
+sed -i '/^restore_command/d' postgresql.auto.conf
+sed -i '/^primary_conninfo/d' postgresql.auto.conf
+echo "restore_command = '/usr/local/bin/restore_command.sh /usr/local/bin/exporter.env %f %p'" >> postgresql.auto.conf
+echo "primary_conninfo = 'user=replicator password=$2 host=$1 port=5432 sslmode=prefer sslcompression=0 gssencmode=prefer krbsrvname=postgres target_session_attrs=any'" >> postgresql.auto.conf
+
+chown -R postgres:postgres .
+
+echo "Starting postgres"
+systemctl start <%= $service_name %>
+puppet agent --enable
