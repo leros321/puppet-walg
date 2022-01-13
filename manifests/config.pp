@@ -92,11 +92,13 @@ class walg::config {
       ;
   }
 
-  cron { 'full-backup':
-    command => "/usr/local/bin/cron-full-backup.sh /usr/local/bin/exporter.env ${walg::retention} | logger -t walg-fullbackup",
-    user    => 'root',
-    hour    => 2,
-    minute  => 20,
+  if $walg::backup_enable {
+    cron { 'full-backup':
+      command => "/usr/local/bin/cron-full-backup.sh /usr/local/bin/exporter.env ${walg::retention} | logger -t walg-fullbackup",
+      user    => 'root',
+      hour    => 2,
+      minute  => 20,
+    }
   }
 
   if $walg::backup_fuse {
