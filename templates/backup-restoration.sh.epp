@@ -68,7 +68,8 @@ if [ "$RESTART" = 'yes' ]; then
   systemctl restart <%= $service_name %>
   puppet agent --enable
 else
-  echo "Open connections run:"
+  echo $'\nPostgres is running with local connections only.'
+  echo $'\nIn order to enable network connections, execute the following commands as user=postgres:'
   echo sed -i "s/listen_addresses = 'localhost'/listen_addresses = '*'/" postgresql.conf
   echo systemctl restart <%= $service_name %>
   echo puppet agent --enable
