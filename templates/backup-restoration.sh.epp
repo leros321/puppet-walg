@@ -70,9 +70,9 @@ if [ "$RESTART" = 'yes' ]; then
 else
   echo $'\nPostgres is running with local connections only.'
   echo $'\nIn order to enable network connections, execute the following commands.'
-  echo $'\nas user=postgres:'
+  echo "As user=postgres:"
   echo sed -i \"s/listen_addresses = 'localhost'/listen_addresses = '*'/\" postgresql.conf
-  echo $'\nas user=root:'
+  echo $'\nAs user=root:'
   echo systemctl restart <%= $service_name %>
   echo puppet agent --enable
 fi
