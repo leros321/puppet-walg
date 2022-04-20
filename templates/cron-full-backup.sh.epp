@@ -97,6 +97,11 @@ if [ -n "$LAST_BACKUP_TO_DELETE" ]; then
 else
   echo "No backup to delete"
 fi
+# perform integrity check
+/usr/local/bin/wal-g wal-verify integrity
+
+echo "Delete garbage files"
+/usr/local/bin/wal-g delete --confirm garbage
 
 # Notify prometheus exporter
 systemctl reload wal-g-prometheus-exporter.service
